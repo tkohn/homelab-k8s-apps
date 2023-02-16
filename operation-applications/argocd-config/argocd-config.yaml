@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-config
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/tkohn/homelab-k8s-apps.git
+    path: operation-applications/argocd-config
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
